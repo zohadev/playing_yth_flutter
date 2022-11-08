@@ -1,5 +1,9 @@
-on: push
-name: Test, Build and Release apk
+on: 
+  push:
+    tags:
+    - '*'
+
+name: Build and Release apk
 jobs:
   build:
     name: Build APK
@@ -21,12 +25,12 @@ jobs:
       - run: flutter build apk
       - run: flutter build appbundle
       - name: Push APK to Releases
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.11.1
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.YOUR_GITHUB_TOKEN }}
       - name: Push APP-Bundle to Releases
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.11.1
         with:
           artifacts: "build/app/outputs/bundle/release/*.aab"
           token: ${{ secrets.YOUR_GITHUB_TOKEN }}
